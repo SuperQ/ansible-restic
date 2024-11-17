@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: false
   tasks:
-  - name: Ensure cron.d exists in docker containers
-    file:
-      state: 'directory'
-      path: '/etc/cron.d'
+    - name: Ensure cron.d exists in docker containers
+      file:
+        state: 'directory'
+        path: '/etc/cron.d'

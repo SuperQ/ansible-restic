@@ -1,16 +1,18 @@
 ---
-- include: preflight.yml
+- name: Preflight
+  ansible.builtin.include_tasks: preflight.yml
   tags:
     - restic_install
     - restic_configure
 
-- include: install.yml
+- name: Install
+  ansible.builtin.include_tasks: install.yml
   become: true
   tags:
     - restic_install
 
 - name: Whitelist restic to run certain commands with sudo
-  template:
+  ansible.builtin.template:
     src: 'restic.sudoers.j2'
     dest: "/etc/sudoers.d/restic-sudoers"
     owner: root
@@ -21,7 +23,8 @@
   tags:
     - restic_configure
 
-- include: configure_repos.yml
+- name: Configure
+  ansible.builtin.include_tasks: configure_repos.yml
   with_items: '{{ restic_repos }}'
   become: true
   tags:
